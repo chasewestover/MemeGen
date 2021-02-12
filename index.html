@@ -9,7 +9,7 @@
     <title>Meme Generator</title>
 </head>
 <body>
-    <div class="px-20 py-10 bg-gray-100">
+    <div class="px-20 py-10 bg-gray-100 header">
         <h1 class="text-2xl font-bold">Meme Generator</h1>
         <form id="memeform" class="my-5">
             <label for="imageurl">Image Url:</label>
@@ -27,7 +27,7 @@
         const form = document.getElementById("memeform");
         form.onsubmit=function(e){
             e.preventDefault();
-            //if this is an image, continue
+            //if no link to an image is provided, skip to reset the form
             if(form.imageurl.value !== ""){
             let container = document.getElementById("meme-container");
             let newDiv = document.createElement("div");
@@ -43,6 +43,7 @@
             newDiv.appendChild(newImg);
             newDiv.appendChild(toptext);
             newDiv.appendChild(bottext);
+            //overlay 
             let overlay = document.createElement("div");
             let ximage = document.createElement("img");
             overlay.setAttribute("class", "overlay");
@@ -50,13 +51,13 @@
             overlay.appendChild(ximage);
             newDiv.appendChild(overlay);
             container.appendChild(newDiv);
+            //creates deletion event onclick for each meme
             newDiv.onclick = function() {
                 this.remove();
             }
             }
             this.reset();
         }
-        //delete image when you click on the specific one
     </script>
 </body>
 </html>
