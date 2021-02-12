@@ -2,11 +2,61 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css">
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">   
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meme Generator</title>
 </head>
 <body>
-    <h1 class="hello">Meme Generator</h1>
+    <div class="px-20 py-10 bg-gray-100">
+        <h1 class="text-2xl font-bold">Meme Generator</h1>
+        <form id="memeform" class="my-5">
+            <label for="imageurl">Image Url:</label>
+            <input type="text" id="imageurl" name="imageurl">
+            <label for="toptext">Top Text:</label> 
+            <input type="text" id="toptext" name="toptext">
+            <label for="bottext">Bottom Text:</label>
+            <input type="text" id="bottext" name="bottext">
+            <input type="submit" class="text-white bg-blue-600 hover:bg-blue-800 rounded py-1 px-2">
+        </form>
+    </div>
+    <div class="m-10" id="meme-container">
+    </div>
+    <script>
+        const form = document.getElementById("memeform");
+        form.onsubmit=function(e){
+            e.preventDefault();
+            //if this is an image, continue
+            if(form.imageurl.value !== ""){
+            let container = document.getElementById("meme-container");
+            let newDiv = document.createElement("div");
+            newDiv.setAttribute("class", "meme");
+            let newImg = document.createElement("img");
+            let toptext = document.createElement("h2");
+            let bottext = document.createElement("h2");
+            toptext.innerHTML = form.toptext.value;
+            bottext.innerHTML = form.bottext.value;
+            toptext.setAttribute("class","top");
+            bottext.setAttribute("class","bot");
+            newImg.setAttribute("src", form.imageurl.value);
+            newDiv.appendChild(newImg);
+            newDiv.appendChild(toptext);
+            newDiv.appendChild(bottext);
+            let overlay = document.createElement("div");
+            let ximage = document.createElement("img");
+            overlay.setAttribute("class", "overlay");
+            ximage.setAttribute("src", "images/x-mark-256.png");
+            overlay.appendChild(ximage);
+            newDiv.appendChild(overlay);
+            container.appendChild(newDiv);
+            newDiv.onclick = function() {
+                this.remove();
+            }
+            }
+            this.reset();
+        }
+        //delete image when you click on the specific one
+    </script>
 </body>
 </html>
